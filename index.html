@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <title>GitHub 轉換</title>
+  </head>
+  <body>
+    <div class="my-3 mx-3">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" />
+    </div>
+    <div class="mb-3 mx-3">
+      <label for="path" class="form-label">path</label>
+      <input type="text" class="form-control" id="path" />
+    </div>
+    <div class="mb-3 mx-3">
+      <label for="full" class="form-label">REPO位置</label>
+      <input type="text" class="form-control" id="full" />
+    </div>
+    <div class="mb-3 mx-3">
+      <label for="full" class="form-label">PAGE位置</label>
+      <input type="text" class="form-control" id="pfull" />
+    </div>
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="button" id="button">OK</button>
+    </div>
+    <div id="link"></div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const button = document.getElementById("button")
+    const id = document.getElementById("id")
+    const path = document.getElementById("path")
+    const full = document.getElementById("full")
+    const pfull = document.getElementById("pfull")
+    let link = document.getElementById("link")
+    let GitHub = ""
+    let GitHubPage = ""
+    button.addEventListener("click", () => {
+      if (id.value && path.value) {
+        linkP(id.value,path.value)
+      } else if (full.value) {
+        const result = full.value.match(/github\.com\/([^\/]+)\/([^\/]+)/)
+        linkP(result[1], result[2])
+      }else if (pfull.value){
+        const result = pfull.value.match(/\/\/([^\/]+)\.github\.io\/([^\/]+)/)
+        linkP(result[1], result[2])
+      }
+    })
+    function linkP(a, b) {
+      GitHub = `https://github.com/${a}/${b}`
+      GitHubPage = `https://${a}.github.io/${b}`
+      link.innerHTML = `<div id="link"><a href="${GitHub}" target="_blank" class="d-flex justify-content-center mt-5">GitHub</a><hr><a href="${GitHubPage}" target="_blank" class="d-flex justify-content-center">GitHubPage</a></div>`
+    }
+  </script>
+</html>
